@@ -36,7 +36,7 @@ resource "yandex_compute_instance" "vm-1" {
    user-data = file("user_config.yml")
   }
   provisioner "remote-exec" {
-    inline = ["pwd"]
+    inline = ["sudo apt update"]
    connection {
       type        = "ssh"
       user        = "yura"
@@ -45,7 +45,7 @@ resource "yandex_compute_instance" "vm-1" {
     }
   }
   provisioner "local-exec" {
-    command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address},' --private-key ${var.ssh_key_private} provision.yml"
+    command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address},' provision.yml"
   }
 }
 resource "yandex_compute_instance" "vm-2" {
