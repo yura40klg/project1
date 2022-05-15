@@ -45,7 +45,7 @@ resource "yandex_compute_instance" "vm-1" {
     }
   }
 provisioner "file" {
-    source      = "/Dev/Dockerfile"
+    source      = "./Dev/Dockerfile"
     destination = "/tmp/Dockerfile"
   }
   connection {
