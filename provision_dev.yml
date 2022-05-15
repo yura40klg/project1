@@ -1,0 +1,31 @@
+---
+- name: Ensure docker  is present
+  apt:
+   name: docker.io
+   state: present
+  
+- name: Ensure python-pip is present
+  apt:
+   name: python3-pip
+   state: present
+
+- name: docker.py
+  pip:
+   name: docker.py
+
+- name: Build an image 
+  docker_image:
+    path: /tmp
+    name: buildbox
+     
+# - name:   docker build container boxfuse
+#  docker_container:
+#   name: buildbox
+#   image: buildbox
+
+- name:   docker  container boxfuse started
+  docker_container:
+   name: bulildbox
+   image: buildbox
+   state: started
+
