@@ -19,10 +19,10 @@
     name: tomcatbox
 
 - name: login dockerhub
-    command: docker login -u bitsl -p Kaluga_123 bitsl/buildboxfuse
+  shell: docker login -u bitsl -p Kaluga123
     
 - name: create tag to image
-    command: docker tag tomcatbox bitsl/tomcatbox
+  shell: docker tag tomcatbox bitsl/tomcatbox
 
 - name: push image on to dockerhub
-    command: docker push bitsl/tomcatbox
+  shell: docker push bitsl/tomcatbox
