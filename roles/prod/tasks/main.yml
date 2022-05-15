@@ -17,3 +17,9 @@
   docker_image:
     path: /tmp
     name: tomcatbox
+
+- name: create tag to image
+    command: docker tomcatbox bitsl/tomcatbox
+
+- name: push image on to dockerhub
+    command: docker push bitsl/tomcatbox
