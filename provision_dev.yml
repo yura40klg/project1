@@ -1,5 +1,5 @@
 ---
-- name: install maven
+- name: prepare dev node
   hosts: all
   become: yes
   
