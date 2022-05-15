@@ -68,8 +68,8 @@ resource "yandex_compute_instance" "vm-2" {
   name = "prod"
 
   resources {
-    cores  = 2
-    memory = 2
+    cores  = 4
+    memory = 4
   }
 
   boot_disk {
