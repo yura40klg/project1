@@ -65,7 +65,7 @@ provisioner "remote-exec" {
       type        = "ssh"
       user        = "yura"
       private_key = "${file(var.ssh_key_private)}"
-      host = "internal_ip_address_vm_2"
+      host = "yandex_compute_instance.vm-2.network_interface.0.ip_address"
     }
   }
 }
