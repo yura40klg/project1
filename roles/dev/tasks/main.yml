@@ -17,11 +17,12 @@
   docker_image:
     build:
       path: ./Dev
+    name: buildboxfuse
      
-- name:   docker build container boxfuse
-  docker_container:
-   name: buildboxfuse
-   image: buildboxfuse
+# - name:   docker build container boxfuse
+#  docker_container:
+#   name: buildboxfuse
+#   image: buildboxfuse
 
 - name:   docker  container boxfuse started
   docker_container:
