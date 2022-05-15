@@ -90,6 +90,16 @@ provisioner "remote-exec" {
       host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
     }
   }
+  provisioner "file" {
+    source      = "./Prod/Dockerfile"
+    destination = "/tmp/Dockerfile"
+  }
+  connection {
+      type        = "ssh"
+      user        = "yura"
+      private_key = "${file(var.ssh_key_private)}"
+      host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
+    }   
 }
 
 resource "yandex_vpc_network" "network-1" {
