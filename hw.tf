@@ -60,7 +60,12 @@ resource "yandex_compute_instance" "vm-2" {
   }
 provisioner "remote-exec" {
     inline = ["sudo apt update"]
-   
+   connection {
+      type        = "ssh"
+      user        = "yura"
+      private_key = "${file(var.ssh_key_private)}"
+      host = "${yandex_compute_instance.vm-2.network_interface.0.ip_address}"
+    }
   }
 }
 
