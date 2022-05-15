@@ -64,8 +64,7 @@ provisioner "remote-exec" {
     connection {
       type        = "ssh"
       user        = "yura"
-      private_key = "~/.ssh/id_rsa.pub"
-      host ="external_ip_address_vm_1"
+      private_key = "file(~/.ssh/)"
     }
   }
 }
