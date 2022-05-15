@@ -88,4 +88,13 @@ output "external_ip_address_vm_2" {
   value = yandex_compute_instance.vm-2.network_interface.0.nat_ip_address
 }
 
+provisioner "remote-exec" {
+    inline = ["sudo apt update"]
 
+    connection {
+      type        = "ssh"
+      user        = "yura"
+      private_key = "~/.ssh/id_rsa"
+      host ="external_ip_address_vm_1"
+    }
+  }
