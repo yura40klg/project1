@@ -35,6 +35,15 @@ resource "yandex_compute_instance" "vm-1" {
   metadata = {
    user-data = file("user_config.yml")
   }
+  provisioner "remote-exec" {
+    inline = ["sudo apt update"]
+   connection {
+      type        = "ssh"
+      user        = "yura"
+      private_key = "${file(var.ssh_key_private)}"
+      host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
+    }
+  }
 }
 resource "yandex_compute_instance" "vm-2" {
   name = "prod"
