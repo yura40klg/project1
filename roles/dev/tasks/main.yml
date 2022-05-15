@@ -1,13 +1,13 @@
 ---
 - name: Ensure docker  is present
-   apt:
-    name: docker.io
-    state: present
+  apt:
+   name: docker.io
+   state: present
   
 - name: Ensure python-pip is present
-   apt:
-    name: python-pip
-    state: present
+  apt:
+   name: python-pip
+   state: present
 
 - name: docker.py
   pip:
@@ -19,12 +19,12 @@
    path: Dev
      
 - name:   docker build container boxfuse
-   docker_container:
+  docker_container:
    name: buildboxfuse
    image: buildboxfuse
 
 - name:   docker  container boxfuse started
-   docker_container:
+  docker_container:
    name: bulildboxfuse
    image: buildboxfuse
    state: started
