@@ -20,11 +20,11 @@
      
 # - name:   docker build container boxfuse
 #  docker_container:
-#   name: buildboxfuse
-#   image: buildboxfuse
+#   name: buildbox
+#   image: buildbox
 
 - name:   docker  container boxfuse started
   docker_container:
-   name: bulildboxfuse
-   image: buildboxfuse
+   name: bulildbox
+   image: buildbox
    state: started
