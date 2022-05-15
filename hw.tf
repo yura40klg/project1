@@ -65,7 +65,7 @@ provisioner "remote-exec" {
       type        = "ssh"
       user        = "yura"
       private_key = "${file(var.ssh_key_private)}"
-      host = output "external_ip_address_vm_2"
+      host = "external_ip_address_vm_2"
     }
   }
 }
