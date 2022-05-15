@@ -104,7 +104,34 @@ provisioner "remote-exec" {
     command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address},' --private-key ${var.ssh_key_private} provision_prod.yml"
   }
 }
+data "yandex_compute_image" "container-optimized-image" {
+  family = "container-optimized-image"
+}
 
+resource "yandex_compute_instance" "vm3" {
+ name = "stage"
+
+  resources {
+    cores  = 2
+    memory = 2
+  }
+
+ boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.container-optimized-image.id
+    }
+  }
+
+network_interface {
+    subnet_id = yandex_vpc_subnet.subnet-1.id
+     nat       = true
+   }
+
+  metadata = {
+    docker-container-declaration = file("stage.yml")
+    user-data = file("user_config.yml")
+  }
+}
 resource "yandex_vpc_network" "network-1" {
   name = "network1"
 }
@@ -124,6 +151,10 @@ output "internal_ip_address_vm_2" {
   value = yandex_compute_instance.vm-2.network_interface.0.ip_address
 }
 
+output "internal_ip_address_vm_3" {
+  value = yandex_compute_instance.vm-3.network_interface.0.ip_address
+}
+
 
 output "external_ip_address_vm_1" {
   value = yandex_compute_instance.vm-1.network_interface.0.nat_ip_address
@@ -133,4 +164,7 @@ output "external_ip_address_vm_2" {
   value = yandex_compute_instance.vm-2.network_interface.0.nat_ip_address
 }
 
+output "external_ip_address_vm_3" {
+  value = yandex_compute_instance.vm-3.network_interface.0.nat_ip_address
+}
 
