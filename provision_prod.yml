@@ -1,5 +1,5 @@
 ---
-- name: prepare dev node
+- name: prepare prod node
   hosts: all
   become: yes
   
