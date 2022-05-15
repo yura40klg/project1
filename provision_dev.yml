@@ -18,11 +18,6 @@
     path: /tmp
     name: buildbox
      
-# - name:   docker build container boxfuse
-#  docker_container:
-#   name: buildbox
-#   image: buildbox
-
 - name:   docker  container boxfuse started
   docker_container:
    name: bulildbox
