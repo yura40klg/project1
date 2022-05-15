@@ -13,7 +13,7 @@ provider "yandex" {
   folder_id = "b1gra9c1ucqnfnmki3lj"
   zone      = "ru-central1-a"
 }
-resource "yandex_compute_instance" "vm-11" {
+resource "yandex_compute_instance" "vm-1" {
   name = "dev"
 
   resources {
@@ -36,7 +36,7 @@ resource "yandex_compute_instance" "vm-11" {
    user-data = file("user_config.yml")
   }
 }
-resource "yandex_compute_instance" "vm-22" {
+resource "yandex_compute_instance" "vm-2" {
   name = "prod"
 
   resources {
@@ -75,18 +75,18 @@ resource "yandex_vpc_subnet" "subnet-1" {
 }
 
 output "internal_ip_address_vm_1" {
-  value = yandex_compute_instance.vm-11.network_interface.0.ip_address
+  value = yandex_compute_instance.vm-1.network_interface.0.ip_address
 }
 
 output "internal_ip_address_vm_2" {
-  value = yandex_compute_instance.vm-22.network_interface.0.ip_address
+  value = yandex_compute_instance.vm-2.network_interface.0.ip_address
 }
 
 
 output "external_ip_address_vm_1" {
-  value = yandex_compute_instance.vm-11.network_interface.0.nat_ip_address
+  value = yandex_compute_instance.vm-1.network_interface.0.nat_ip_address
 }
 
 output "external_ip_address_vm_2" {
-  value = yandex_compute_instance.vm-22.network_interface.0.nat_ip_address
+  value = yandex_compute_instance.vm-2.network_interface.0.nat_ip_address
 }
