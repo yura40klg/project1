@@ -1,7 +1,0 @@
-spec:
-  containers:
-  - image: cr.yandex/crpl25ck77kdjfgeldov/bitsl/buildboxfuse
-    securityContext:
-      privileged: false
-    stdin: false
-    tty: false
