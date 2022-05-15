@@ -13,10 +13,10 @@
   pip:
    name: docker.py
 
-- name: Create Dev Image
+- name: Build an image 
   docker_image:
-   name: buildboxfuse
-   path: Dev
+    build:
+      path: ./Dev
      
 - name:   docker build container boxfuse
   docker_container:
