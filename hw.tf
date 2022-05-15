@@ -13,59 +13,55 @@ provider "yandex" {
   folder_id = "b1gra9c1ucqnfnmki3lj"
   zone      = "ru-central1-a"
 }
-
-data "yandex_compute_image" "container-optimized-image" {
-  family = "container-optimized-image"
-}
-
-resource "yandex_compute_instance" "vm1" {
- name = "dev"
+resource "yandex_compute_instance" "vm-11" {
+  name = "dev"
 
   resources {
     cores  = 2
     memory = 2
   }
 
- boot_disk {
+  boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.container-optimized-image.id
+      image_id = "fd8sc0f4358r8pt128gg"
     }
   }
 
-network_interface {
+ network_interface {
     subnet_id = yandex_vpc_subnet.subnet-1.id
-     nat       = true
+    nat = true
    }
 
   metadata = {
-    docker-container-declaration = file("dev.yml")
-    user-data = file("user_config.yml")
+   user-data = file("user_config.yml")
   }
 }
-resource "yandex_compute_instance" "vm2" {
- name = "prod"
+resource "yandex_compute_instance" "vm-22" {
+  name = "prod"
 
   resources {
     cores  = 2
-    memory = 4
+    memory = 2
   }
 
- boot_disk {
+  boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.container-optimized-image.id
+      image_id = "fd8sc0f4358r8pt128gg"
     }
   }
 
-network_interface {
+ network_interface {
     subnet_id = yandex_vpc_subnet.subnet-1.id
-     nat       = true
+    nat = true
    }
 
   metadata = {
-    docker-container-declaration = file("prod.yml")
-    user-data = file("user_config.yml")
+   user-data = file("user_config.yml")
   }
 }
+
+
+
 
 resource "yandex_vpc_network" "network-1" {
   name = "network1"
@@ -77,3 +73,19 @@ resource "yandex_vpc_subnet" "subnet-1" {
   network_id     = yandex_vpc_network.network-1.id
   v4_cidr_blocks = ["192.168.10.0/24"]
 }
+
+output "internal_ip_address_vm_1" {
+  value = yandex_compute_instance.vm-11.network_interface.0.ip_address
+}
+
+output "internal_ip_address_vm_2" {
+  value = yandex_compute_instance.vm-22.network_interface.0.ip_address
+}
+
+
+output "external_ip_address_vm_1" {
+  value = yandex_compute_instance.vm-11.network_interface.0.nat_ip_address
+}
+
+output "external_ip_address_vm_2" {
+  value = yandex_compute_instance.vm-22.network_interface.0.nat_ip_address
