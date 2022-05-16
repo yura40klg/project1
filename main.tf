@@ -59,10 +59,6 @@ provisioner "file" {
       private_key = "${file(var.ssh_key_private)}"
       host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
     }   
-
-#  provisioner "local-exec" {
-#    command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address},' --private-key ${var.ssh_key_private} provision_dev.yml"
-#  }
 }
 resource "yandex_compute_instance" "vm-2" {
   name = "prod"
@@ -105,9 +101,7 @@ provisioner "remote-exec" {
       private_key = "${file(var.ssh_key_private)}"
       host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
     } 
-#  provisioner "local-exec" {
-#    command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address},' --private-key ${var.ssh_key_private} provision_prod.yml"
-#  }
+
 }
 
 resource "yandex_compute_instance" "vm-3" {
