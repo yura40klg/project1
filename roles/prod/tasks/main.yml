@@ -22,7 +22,7 @@
   shell: docker login -u bitsl -p Kaluga123
     
 - name: create tag to image
-  shell: docker tag tomcatbox1 bitsl/tomcatbox1
+  shell: docker tag tomcatbox bitsl/tomcatbox
 
 - name: push image on to dockerhub
-  shell: docker push bitsl/tomcatbox1
+  shell: docker push bitsl/tomcatbox
