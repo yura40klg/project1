@@ -147,8 +147,8 @@ resource "yandex_vpc_subnet" "subnet-1" {
 resource "local_file" "ansible_inventory" {
   content = templatefile("inventory.tmpl",
     {
-     dev_ip = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
-     prod_ip = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}" 
+     dev_ip = yandex_compute_instance.vm-1.network_interface.0.nat_ip_address
+     prod_ip = yandex_compute_instance.vm-2.network_interface.0.nat_ip_address 
     }
   )
   filename = "inventory"
