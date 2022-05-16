@@ -1,9 +1,5 @@
 [Dev]
-%{ for ip in dev_ip ~}
-${ip}
-%{ endfor ~}
+%{dev_ip}
 
 [Prod]
-%{ for ip in prod_ip ~}
-${ip}
-%{ endfor ~}
+%{prod_ip}
