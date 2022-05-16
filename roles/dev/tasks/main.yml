@@ -15,7 +15,7 @@
 
 - name: Build an image 
   docker_image:
-    path: /Dev
+    path: /tmp
     name: buildbox
      
 - name:   docker  container boxfuse started
