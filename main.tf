@@ -47,8 +47,8 @@ resource "yandex_compute_instance" "vm-1" {
       user        = "yura"
       private_key = "${file(var.ssh_key_private)}"
       host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
-#    }
-#  }
+    }
+  }
 #provisioner "file" {
 #    source      = "./Dev/Dockerfile"
 #    destination = "/tmp/Dockerfile"
