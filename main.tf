@@ -110,30 +110,30 @@ resource "yandex_compute_instance" "vm-2" {
 #  }
 }
 
-resource "yandex_compute_instance" "vm3" {
- name = "stage"
+resource "yandex_compute_instance" "vm-3" {
+  name = "stage"
 
   resources {
-    cores  = 2
-    memory = 2
+    cores  = 4
+    memory = 4
   }
 
- boot_disk {
+  boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.container-optimized-image.id
+      image_id = "fd8sc0f4358r8pt128gg"
     }
   }
 
-network_interface {
+ network_interface {
     subnet_id = yandex_vpc_subnet.subnet-1.id
-     nat       = true
+    nat = true
    }
 
   metadata = {
-    docker-container-declaration = file("stage.yml")
-    user-data = file("user_config.yml")
+   user-data = file("user_config.yml")
   }
 }
+
 resource "yandex_vpc_network" "network-1" {
   name = "network1"
 }
@@ -147,8 +147,9 @@ resource "yandex_vpc_subnet" "subnet-1" {
 resource "local_file" "ansible_inventory" {
   content = templatefile("inventory.tmpl",
     {
-     dev_ip = yandex_compute_instance.vm-1.network_interface.0.nat_ip_address
-     prod_ip = yandex_compute_instance.vm-2.network_interface.0.nat_ip_address 
+     dev_ip = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}",
+     prod_ip = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}",
+     stage_ip = "${yandex_compute_instance.vm-3.network_interface.0.nat_ip_address}"
     }
   )
   filename = "inventory"
