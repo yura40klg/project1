@@ -11,8 +11,8 @@ RUN apt-get update \
    && unzip awscliv2.zip \
    && ./aws/install -i /usr/local/aws-cli -b /usr/local/bin \
    && ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update \
-   && aws configure set aws_access_key_id "YCAJEeIxvjm3GjpXekRtIPZE_" \
-   && aws configure set aws_secret_access_key "YCOHJ0w3RTu3XD_YQITb6XrHWQ7ZCHl2MJHHbo6M" \
+   && aws configure set aws_access_key_id "**************************_" \
+   && aws configure set aws_secret_access_key "**************************" \
    && aws configure set region "ru-central1"  \
    && cd /var/share \
    && aws --endpoint-url=https://storage.yandexcloud.net s3 cp hello-1.0.war s3://art40/hello.war
