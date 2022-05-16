@@ -19,7 +19,7 @@
     name: tomcatbox
 
 - name: login dockerhub
-  shell: docker login -u bitsl -p Kaluga123
+  shell: docker login -u b**** -p K******
     
 - name: create tag to image
   shell: docker tag tomcatbox bitsl/tomcatbox
