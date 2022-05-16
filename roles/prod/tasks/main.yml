@@ -16,13 +16,13 @@
 - name: Build an image 
   docker_image:
     path: /tmp
-    name: tomcatbox
+    name: tomcatbox1
 
 - name: login dockerhub
   shell: docker login -u bitsl -p Kaluga123
     
 - name: create tag to image
-  shell: docker tag tomcatbox bitsl/tomcatbox
+  shell: docker tag tomcatbox1 bitsl/tomcatbox1
 
 - name: push image on to dockerhub
-  shell: docker push bitsl/tomcatbox
+  shell: docker push bitsl/tomcatbox1
