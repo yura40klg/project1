@@ -40,13 +40,13 @@ resource "yandex_compute_instance" "vm-1" {
   metadata = {
    user-data = file("user_config.yml")
   }
-#  provisioner "remote-exec" {
-#    inline = ["sudo apt update"]
-#   connection {
-#      type        = "ssh"
-#      user        = "yura"
-#      private_key = "${file(var.ssh_key_private)}"
-#      host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
+  provisioner "remote-exec" {
+    inline = ["sudo apt update"]
+   connection {
+      type        = "ssh"
+      user        = "yura"
+      private_key = "${file(var.ssh_key_private)}"
+      host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
 #    }
 #  }
 #provisioner "file" {
@@ -86,15 +86,15 @@ resource "yandex_compute_instance" "vm-2" {
   metadata = {
    user-data = file("user_config.yml")
   }
-#provisioner "remote-exec" {
-#    inline = ["sudo apt update"]
-#   connection {
-#      type        = "ssh"
-#      user        = "yura"
-#      private_key = "${file(var.ssh_key_private)}"
-#      host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
-#    }
-#  }
+provisioner "remote-exec" {
+    inline = ["sudo apt update"]
+   connection {
+      type        = "ssh"
+      user        = "yura"
+      private_key = "${file(var.ssh_key_private)}"
+      host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
+    }
+  }
 #  provisioner "file" {
 #    source      = "./Prod/Dockerfile"
 #    destination = "/tmp/Dockerfile"
@@ -132,6 +132,16 @@ resource "yandex_compute_instance" "vm-3" {
   metadata = {
    user-data = file("user_config.yml")
   }
+provisioner "remote-exec" {
+    inline = ["sudo apt update"]
+   connection {
+      type        = "ssh"
+      user        = "yura"
+      private_key = "${file(var.ssh_key_private)}"
+      host = "${yandex_compute_instance.vm-3.network_interface.0.nat_ip_address}"
+    }
+  }
+
 }
 
 resource "yandex_vpc_network" "network-1" {
