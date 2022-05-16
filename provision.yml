@@ -1,8 +1,16 @@
 ---
 
-- hosts: all
+- hosts: dev
   become: yes
   roles:
     - dev
+- hosts: prod
+  become: yes
+  roles:
     - prod
+- hosts: stage
+  become: yes
+  roles:
     - stage
+
+    
