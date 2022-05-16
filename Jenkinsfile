@@ -19,9 +19,4 @@ pipeline {
                 sh 'terraform apply --auto-approve'
             }
         }
-        stage('Deploy') {
-            steps {
-                sh 'ansible --version' 
-            }
-    }
-}
+        }
