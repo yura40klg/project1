@@ -1,0 +1,9 @@
+[Dev]
+%{ for ip in dev_ip ~}
+${ip}
+%{ endfor ~}
+
+[Prod]
+%{ for ip in prod_ip ~}
+${ip}
+%{ endfor ~}
