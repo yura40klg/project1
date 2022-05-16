@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'ansible-playbook -i inventory provision.yml' 
+                sh 'ansible --version' 
             }
     }
 }
