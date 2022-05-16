@@ -19,5 +19,9 @@ pipeline {
                 sh 'terraform apply --auto-approve'
             }
         }
+        stage('Deploy') {
+            steps {
+                sh 'ansible-playbook -i inventory provision.yml' 
+            }
     }
 }
