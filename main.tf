@@ -40,29 +40,29 @@ resource "yandex_compute_instance" "vm-1" {
   metadata = {
    user-data = file("user_config.yml")
   }
-  provisioner "remote-exec" {
-    inline = ["sudo apt update"]
-   connection {
-      type        = "ssh"
-      user        = "yura"
-      private_key = "${file(var.ssh_key_private)}"
-      host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
-    }
-  }
-provisioner "file" {
-    source      = "./Dev/Dockerfile"
-    destination = "/tmp/Dockerfile"
-  }
-  connection {
-      type        = "ssh"
-      user        = "yura"
-      private_key = "${file(var.ssh_key_private)}"
-      host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
-    }   
+#  provisioner "remote-exec" {
+#    inline = ["sudo apt update"]
+#   connection {
+#      type        = "ssh"
+#      user        = "yura"
+#      private_key = "${file(var.ssh_key_private)}"
+#      host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
+#    }
+#  }
+#provisioner "file" {
+#    source      = "./Dev/Dockerfile"
+#    destination = "/tmp/Dockerfile"
+#  }
+#  connection {
+#      type        = "ssh"
+#      user        = "yura"
+#      private_key = "${file(var.ssh_key_private)}"
+#      host = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
+#    }   
 
-  provisioner "local-exec" {
-    command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address},' --private-key ${var.ssh_key_private} provision_dev.yml"
-  }
+#  provisioner "local-exec" {
+#    command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address},' --private-key ${var.ssh_key_private} provision_dev.yml"
+#  }
 }
 resource "yandex_compute_instance" "vm-2" {
   name = "prod"
@@ -86,28 +86,28 @@ resource "yandex_compute_instance" "vm-2" {
   metadata = {
    user-data = file("user_config.yml")
   }
-provisioner "remote-exec" {
-    inline = ["sudo apt update"]
-   connection {
-      type        = "ssh"
-      user        = "yura"
-      private_key = "${file(var.ssh_key_private)}"
-      host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
-    }
-  }
-  provisioner "file" {
-    source      = "./Prod/Dockerfile"
-    destination = "/tmp/Dockerfile"
-  }
-  connection {
-      type        = "ssh"
-      user        = "yura"
-      private_key = "${file(var.ssh_key_private)}"
-      host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
-    } 
-  provisioner "local-exec" {
-    command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address},' --private-key ${var.ssh_key_private} provision_prod.yml"
-  }
+#provisioner "remote-exec" {
+#    inline = ["sudo apt update"]
+#   connection {
+#      type        = "ssh"
+#      user        = "yura"
+#      private_key = "${file(var.ssh_key_private)}"
+#      host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
+#    }
+#  }
+#  provisioner "file" {
+#    source      = "./Prod/Dockerfile"
+#    destination = "/tmp/Dockerfile"
+#  }
+#  connection {
+#      type        = "ssh"
+#      user        = "yura"
+#      private_key = "${file(var.ssh_key_private)}"
+#      host = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}"
+#    } 
+#  provisioner "local-exec" {
+#    command = "ansible-playbook -u yura -i '${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address},' --private-key ${var.ssh_key_private} provision_prod.yml"
+#  }
 }
 
 resource "yandex_compute_instance" "vm3" {
@@ -144,7 +144,15 @@ resource "yandex_vpc_subnet" "subnet-1" {
   network_id     = yandex_vpc_network.network-1.id
   v4_cidr_blocks = ["192.168.10.0/24"]
 }
-
+resource "local_file" "ansible_inventory" {
+  content = templatefile("inventory.tmpl",
+    {
+     dev_ip = "${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}"
+     prod_ip = "${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}" 
+    }
+  )
+  filename = "inventory"
+}
 output "internal_ip_address_vm_1" {
   value = yandex_compute_instance.vm-1.network_interface.0.ip_address
 }
