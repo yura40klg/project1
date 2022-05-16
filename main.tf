@@ -14,10 +14,6 @@ provider "yandex" {
   zone      = "ru-central1-a"
 }
 
-data "yandex_compute_image" "container-optimized-image" {
-  family = "container-optimized-image"
-}
-
 resource "yandex_compute_instance" "vm-1" {
   name = "dev"
 
@@ -138,16 +134,6 @@ provisioner "remote-exec" {
 
 }
 
-resource "yandex_vpc_network" "network-1" {
-  name = "network1"
-}
-
-resource "yandex_vpc_subnet" "subnet-1" {
-  name           = "subnet1"
-  zone           = "ru-central1-a"
-  network_id     = yandex_vpc_network.network-1.id
-  v4_cidr_blocks = ["192.168.10.0/24"]
-}
 resource "local_file" "ansible_inventory" {
   content = templatefile("inventory.tmpl",
     {
