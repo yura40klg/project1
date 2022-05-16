@@ -16,5 +16,5 @@
 - name:   docker  container tomcate started
   docker_container:
    name: tomcatbox
-   image: bitsl/tomcatbox
+   image: bitsl/tomcatbox1
    state: started
