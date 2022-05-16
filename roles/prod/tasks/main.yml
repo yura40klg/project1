@@ -15,7 +15,7 @@
 
 - name: Build an image 
   docker_image:
-    path: /tmp/Dockerfile
+    path: /tmp
     name: tomcatbox1
 
 - name: login dockerhub
